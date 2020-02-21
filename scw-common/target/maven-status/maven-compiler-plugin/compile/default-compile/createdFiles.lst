@@ -1,6 +1,0 @@
-com\scw\common\utils\ScwAppUtils.class
-com\scw\common\consts\ProjectConstant.class
-com\scw\common\utils\AppDateUtils.class
-com\scw\common\config\AppSwaggerConfig.class
-com\scw\common\bean\AppResponse.class
-com\scw\common\vo\BaseVo.class
