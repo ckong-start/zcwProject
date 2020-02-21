@@ -1,12 +1,10 @@
 package com.scw;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;

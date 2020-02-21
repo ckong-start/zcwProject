@@ -13,11 +13,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
-import com.mysql.cj.Session;
 import com.scw.common.bean.AppResponse;
 import com.scw.common.utils.ScwAppUtils;
 import com.scw.common.vo.BaseVo;
