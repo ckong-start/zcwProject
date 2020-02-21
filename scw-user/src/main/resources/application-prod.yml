@@ -28,10 +28,10 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://47.116.5.173:8761/eureka/
+      defaultZone: http://47.116.16.52:8761/eureka/
   instance:
     prefer-ip-address: true
-    ip-address: 47.116.5.173     # 指定当前应用的ip地址
+    ip-address: 47.116.16.52     # 指定当前应用的ip地址
     
 #log日志
 logging:

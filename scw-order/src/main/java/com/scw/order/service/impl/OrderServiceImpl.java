@@ -1,12 +1,13 @@
 package com.scw.order.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.scw.order.bean.TOrder;
 import com.scw.order.bean.TOrderExample;
 import com.scw.order.mapper.TOrderMapper;
 import com.scw.order.service.OrderService;
-
+@Service
 public class OrderServiceImpl implements OrderService {
 
 	@Autowired

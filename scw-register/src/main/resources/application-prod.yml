@@ -9,8 +9,8 @@ server:
   
 #eureka配置
 eureka:
-  instance:
-    hostname: 47.116.5.173
+  instance: 
+    hostname: 47.116.16.52
   client: 
     register-with-eureka: false #自己就是注册中心，不用注册自己
     fetch-registry: false #不去其他注册中心去获取服务地址

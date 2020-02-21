@@ -20,6 +20,7 @@
 		<module>../scw-order</module>
 		<module>../scw-project</module>
 		<module>../scw-user</module>
+		<module>../scw-webui</module>
 	</modules>
 
 	<properties>
@@ -28,7 +29,7 @@
 	</properties>
 
 	<dependencies>
-		
+
 		<dependency>
 			<groupId>com.scw</groupId>
 			<artifactId>scw-common</artifactId>
@@ -118,6 +119,13 @@
 						<version>5.1.42</version>
 					</dependency>
 				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
