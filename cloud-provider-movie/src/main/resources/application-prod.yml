@@ -1,0 +1,17 @@
+#
+spring:
+  application:
+    name: cloud-provider-movie
+
+#
+server:
+  port: 8001
+ 
+#
+eureka:
+  client:
+    service-url:
+      defaultZone: http://47.116.5.173:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    ip-address: 47.116.5.173

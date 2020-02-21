@@ -1,0 +1,29 @@
+#
+spring:
+  application:
+    name: cloud-consumer-user
+
+#
+server:
+  port: 9000
+  
+#
+eureka:
+  client:
+    service-url:
+      defaultZont: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    
+#开启Feign对Hystrix的支持
+feign:
+  hystrix:
+    enabled: true
+    
+#暴露数据监控流
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+          
