@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>atcrowdfunding-common</artifactId>
+	<name>atcrowdfunding-common</name>
+	<description>存放所有模块所需要的公共类</description>
+	<parent>
+		<groupId>com.atcrowdfunding</groupId>
+		<artifactId>atcrowdfunding-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../atcrowdfunding-parent/pom.xml</relativePath>
+	</parent>
+	<!-- 公共依赖 -->
+	<dependencies>
+		
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+		</dependency>
+			<!-- 引入log4j日志框架
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency> -->
+
+		<!-- 以后开发项目时统一日志框架 1、引入slf4j和他的一个实现[一般使用 logback] 2、为了防止其他的框架使用了其他jar包 
+			先排除其他的所有的jar包 使用slf4j提供的转换包替换他们 -->
+		<!-- 由于spring和commons-logging耦合 ，缺少jcl运行报错 可以引入 slf4j提供的jcl的转换包：转换包中提供了和jcl一样的包和类以及类的方法，但是具体输出日志时使用的是slf4j的api输出的 
+			org.apache.commons.logging.Log -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId><!-- 替换commons-logging -->
+			<version>1.7.25</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId><!-- 替换java.util.logging -->
+			<version>1.7.25</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId><!-- 间接依赖logback-core --><!-- 优秀的日志实现 -->
+		</dependency>
+		<!-- slf4j（门面）: Simple Logging Facade for Java ：简单日志门面（接口）（类似JDBC）； log4j：日志实现（类似数据库驱动）； 
+			log4j2（实现）, logback（实现）, 后来我们用slf4j+logback（最稳定的方案）; -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId><!-- 抽象层，接口 -->
+		</dependency>
+	</dependencies>
+
+</project>

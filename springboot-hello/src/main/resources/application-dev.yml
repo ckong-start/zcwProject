@@ -1,0 +1,5 @@
+# 配置视图解析器
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/pages/
+    suffix: .html
