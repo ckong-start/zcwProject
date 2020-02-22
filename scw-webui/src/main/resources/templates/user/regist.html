@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keys" content="">
+    <meta name="author" content="">
+	<div th:include = "~{include/base_fragments::cssFragment}"></div>
+
+	<style>
+
+	</style>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <div><a class="navbar-brand" href="index.html" style="font-size:32px;">尚筹网-创意产品众筹平台</a></div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <form class="form-signin" role="form" method="post" action="/user/sendsms">
+        <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 发送验证码</h2>
+		  <div class="form-group has-success has-feedback">
+			<input type="text" name="phonenum" class="form-control" id="inputSuccess4" placeholder="请输入手机号码" autofocus>
+			<span class="glyphicon glyphicon-user form-control-feedback"></span>
+		  </div> 
+		  
+       
+        <a class="btn btn-lg btn-success btn-block" onclick="dologin()" > 发送</a>
+      </form>
+    </div>
+	<div th:include = "~{include/base_fragments::#jsFragment}"></div>
+    <script>
+    function dologin() {
+       /*  $("form").submit(); */
+       var num = $("input[name=phonenum]").val();
+       $.ajax({
+    	   type:"POST",
+    	   url:"/user/sendsms",
+    	   data:{"phonenum":num},
+       	   success:function(result){
+       		   layer.msg(result);
+       	   }
+       });
+    }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+	<div class="col-sm-3 col-md-2 sidebar">
+		<div class="tree">
+			<ul style="padding-left:0px;" class="list-group">
+				<!-- 获取父菜单集合遍历显示 -->
+				<c:forEach items="${ sessionScope.menus }" var="pMenu">
+					<c:choose>
+						<c:when test="${ empty pMenu.children }">
+							<!-- 没有子菜单的父菜单 -->
+							<li class="list-group-item tree-closed" >
+								<a href="${ PATH }/${ pMenu.url }"><i class="${ pMenu.icon }"></i> ${ pMenu.name }</a> 
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li class="list-group-item tree-closed">
+								<!-- 有子菜单的父菜单 -->
+								<span><i class="${ pMenu.icon }"></i> ${ pMenu.name }<span class="badge" style="float:right">${ pMenu.children.size() }</span></span> 
+								<ul style="margin-top:10px;display:none;">
+									<c:forEach items="${ pMenu.children }" var="menu">
+										<li style="height:30px;">
+											<a href="${ PATH }/${ menu.url }"><i class="${ menu.icon }"></i> ${ menu.name }</a> 
+										</li>
+									</c:forEach>
+								</ul>
+							</li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</ul>
+		</div>
+	</div>
