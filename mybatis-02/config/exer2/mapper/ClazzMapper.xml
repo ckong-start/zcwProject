@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 
+	namespace是接口的全类名
+ -->
+  
+<mapper namespace="exer2.mapper.ClazzMapper">
+	
+	<resultMap type="pojo.Clazz" id="queryClazzByIdForSimpleResultMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<collection property="stus" ofType="pojo.Student">
+			<id column="stu_id" property="id"/>
+			<result column="stu_name" property="name"/>
+		</collection>
+	</resultMap>
+	<!-- public Clazz queryClazzByIdForSimple(Integer id); -->
+	<select id="queryClazzByIdForSimple" resultMap="queryClazzByIdForSimpleResultMap">
+		select
+			t_clazz.*,
+			t_student.id stu_id,
+			t_student.name stu_name
+		from
+			t_clazz left join t_student
+		on
+			t_clazz.id = t_student.clazz_id
+		where
+			t_clazz.id = #{id}
+	</select>
+	
+	<resultMap type="pojo.Clazz" id="queryClazzByIdForTwoStepResultMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<collection property="stus" 
+			select="exer2.mapper.StudentMapper.queryStudentByClazzIdAndLikeName" 
+			column="{clazzId=id,stuName=name}">
+		</collection>
+	</resultMap>
+	<!-- queryClazzByIdForTwoStep -->
+	<select id="queryClazzByIdForTwoStep" resultMap="queryClazzByIdForTwoStepResultMap">
+		select `id`,`name` from t_clazz where id = #{id}
+	</select>
+	
+	
+</mapper>

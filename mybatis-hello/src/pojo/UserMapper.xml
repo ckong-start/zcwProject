@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 
+	namespace是接口的全类名
+ -->
+  
+<mapper namespace="mapper.UserMapper">
+ <!-- 
+  	使用Mapper接口来开发 Mybatis程序，需要注意几个点：
+  		1、方法名要跟配置的sql语句的id值一致
+  		2、返回值的类型必须和sql配置中的返回ResultType属性一致
+  		3、Mapper接口的全类名必须要和Mapper.xml中的名称空间一致
+  		4、方法的参数类型必须和Mapper.xml中的参数类型一致（可选）
+  
+  
+  select标签用来配置Select查询语句
+  		id属性设置唯一的标识
+  		resultType属性设置查询回来之后每一行都转换成为什么类型
+  		parameterType属性表示参数类型（可选设置）
+  			int 表示 Integer
+   -->
+
+  <select id="queryUserById" resultType="pojo.User" parameterType="int">
+    select 
+    	`id`,
+    	`last_name` lastName,
+    	`sex` 
+    from 
+    	t_user 
+    where 
+    	id = #{id}
+  </select>
+  	
+	<!-- /**
+	 * 更新
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public int updateUserById(User user); -->
+	<update id="updateUserById" parameterType="pojo.User">
+		update 
+			t_user 
+		set
+			`last_name` = #{lastName},
+			`sex` = #{sex}
+		where
+			id = #{id}
+	</update>
+	<!-- /**
+	 * 根据id删除
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public int deleteUserById(Integer id); -->
+	<delete id="deleteUserById">
+		delete 
+		from
+			t_user
+		where 
+			id = #{id}
+	</delete>
+	<!-- /**
+	 * 查询全部
+	 * 
+	 * @return
+	 */
+	public List<User> queryUsers(); -->
+	<select id="queryUsers" resultType="pojo.User">
+		select 
+			`id`,
+			`last_name`lastName,
+			`sex`
+		from
+			t_user
+	</select>
+	<!-- public Map<Integer, User> queryUserForMap(); -->
+	<select id="queryUserForMap" resultType="pojo.User">
+		select `id`,`last_name` lastName,`sex` from t_user
+	</select>
+	<!-- /**
+	 * 添加
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public int saveUser(User user); -->
+	<insert id="saveUser" parameterType="pojo.User" useGeneratedKeys="true" keyProperty="id">
+		insert into 
+			t_user (`last_name`,`sex`) 
+			values 
+			(#{lastName},#{sex})
+	</insert>
+	
+	<!-- 
+	selectKey标签用来配置一个select查询语句，这个语句专门用来查询自动生成的主键值。
+		order属性设置子语句的执行顺序。
+			BEFORE		子语句先执行
+			AFTER		子语句后执行
+		keyProperty="id" 属性表示将数据库返回的id主键值，注入到对象的id属性中
+	-->
+	<insert id="saveUser1" parameterType="pojo.User">
+		<selectKey order="AFTER" keyProperty="id" resultType="int">
+			select last_insert_id()
+		</selectKey>
+		insert into t_user (`last_name`,`sex`) values (#{lastName},#{sex})
+	</insert>
+</mapper>

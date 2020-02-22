@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 
+	namespace是接口的全类名
+ -->
+  
+<mapper namespace="exer1.mapper.UserMapper">
+	<!-- public List<User> queryUsers(); -->
+	  <!-- 
+  	resultMap是将查询回来的结果集,手动映射成为我们需要转换的类型,
+  		告诉Mybatis结果集中列和转换之后类的哪个属性相对应
+  		
+  		type属性设置结果集中每一行转换什么什么类型的对象
+  		id 属性设置唯一的标识
+   -->
+	
+	<resultMap type="User" id="queryUsersResultMap">
+		<!-- 
+  		id 标签用来配置主键列
+  			column列名
+  			property属性名
+  	 -->
+	
+		<id column="id" property="id"/>
+		<result column="last_name" property="lastName"/>
+		<result column="sex" property="sex"/>
+	</resultMap>
+	
+	<select id="queryUsers" resultMap="queryUsersResultMap">
+		select
+			`id`, `last_name`, `sex`
+		from 
+			t_user
+	</select>
+</mapper>
