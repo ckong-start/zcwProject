@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 
+	namespace是接口的全类名
+ -->
+  
+<mapper namespace="exer1.mapper.KeyMapper">
+
+	<resultMap type="pojo.Key" id="queryKeyByIdResultMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="lock_id" property="lock.id"/>
+		<result column="lock_name" property="lock.name"/>
+	</resultMap>
+	
+	<resultMap type="pojo.Key" id="queryKeyByIdResultMap1">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<association property="lock" javaType="pojo.Lock">
+			<id column="lock_id" property="id"/>
+			<result column="lock_name" property="name"/>
+			
+		</association>
+	</resultMap>
+	<select id="queryKeyById" resultMap="queryKeyByIdResultMap1">
+		select
+			t_key.*,
+			t_lock.name lock_name
+		from
+			t_key left join t_lock
+		on
+			t_key.id = t_lock.id
+		where
+			t_key.id = #{id}
+	</select>
+	
+	<resultMap type="pojo.Key" id="queryKeyByIdForTwoStepResultMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<association property="lock" select="exer1.mapper.LockMapper.queryLockById" column="lock_id"></association>
+	</resultMap>
+	<select id="queryKeyByIdForTwoStep" resultMap="queryKeyByIdForTwoStepResultMap">
+		select `id`,`name`,`lock_id` from t_key where id= #{id}
+	</select>
+</mapper>

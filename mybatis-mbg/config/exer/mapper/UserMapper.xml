@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 
+	namespace是接口的全类名
+ -->
+  
+<mapper namespace="exer.mapper.UserMapper">
+	<cache></cache>
+	<sql id="sqlForSelect">
+		select 
+			`id`,`last_name` lastName,`sex`
+		from 
+			t_user
+	</sql>
+	<!-- public List<User> queryUsersBySample(User user); -->
+	<select id="queryUsersBySample" resultType="User">
+		<include refid="sqlForSelect"/>
+		<where>
+			<if test="lastName != null">
+				last_name like concat('%', #{lastName}, '%')
+				or 
+			</if>
+			<if test="sex == 0 or sex == 1">
+				 sex = #{sex}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryUsersBySample2" resultType="User">
+		<include refid="sqlForSelect"/>
+		<!-- <where> -->
+			<trim prefixOverrides="or" suffixOverrides="or" prefix="where">
+			<if test="lastName != null">
+				last_name like concat('%', #{lastName},'%') or
+			</if>
+			<if test="sex == 0 or sex == 1">
+				sex = #{sex}
+			</if>
+		</trim>
+		<!-- </where> -->
+	</select>
+	
+	<!-- public List<User> queryUsersByUserChoose(User user); -->
+	<select id="queryUsersByUserChoose" parameterType="User" resultType="User">
+		<include refid="sqlForSelect"/>
+		<where>
+			<choose>
+				<when test="lastName != null">
+					last_name like concat('%', #{lastName}, '%')
+				</when>
+				<when test="sex == 0 or sex == 1">
+					sex = #{sex}
+				</when>
+				<otherwise>
+					id = #{id}
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	
+	<update id="updateUser" parameterType="User">
+		update
+			t_user
+		<set>
+			<if test="lastName != null">
+				last_name = #{lastName}
+			</if>
+			<if test="sex == 0 or sex == 1">
+				sex = #{sex}
+			</if>
+		</set>
+		where
+			id = #{id}
+	</update>
+	
+	<select id="queryUsersByIds" resultType="User">
+		<include refid="sqlForSelect"/>
+		<where>
+			id in
+			<foreach collection="list" item="i" separator="," open="(" close=")">
+				#{i}
+			</foreach>
+		</where>
+	</select>
+	
+<!-- 	 public int insertUsers(List<User> users); -->
+	<insert id="insertUsers" parameterType="User">
+		insert into
+			t_user(`last_name`,`sex`)
+			values
+		<foreach collection="list" item="user" separator=",">
+			(#{user.lastName},#{user.sex})
+		</foreach>
+	</insert> 
+	
+
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 
+	namespace是接口的全类名
+ -->
+  
+<mapper namespace="exer2.mapper.KeyMapper">
+	<!-- public Key queryKeyById(Integer id); -->
+	<resultMap type="pojo.Key" id="queryKeyByIdResultMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<!-- 
+ 			级联映射
+ 				映射 使列和属性名有对应关系
+ 				级联，就是一级一级的关联
+ 		
+		<result column="lock_id" property="lock.id"/>
+		<result column="lock_name" property="lock.name"/>
+		-->
+		<!-- 
+ 			association标签用来映射子对象
+ 				property属性设置子对象的属性名
+ 				javaType 设置子对象的全类名
+ 		 -->
+		<association property="lock" javaType="pojo.Lock">
+			<id column="lock_id" property="id"/>
+			<result column="lock_name" property="name"/>
+		</association>
+		
+	</resultMap>
+	
+	<select id="queryKeyById" resultMap="queryKeyByIdResultMap">
+		select
+			t_key.*,
+			t_lock.name lock_name
+		from
+			t_key left join t_lock
+		on
+			t_key.lock_id = t_lock.id
+		where
+			t_key.id = #{id}
+	</select>
+	
+</mapper>
